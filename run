@@ -1,0 +1,33 @@
+#!/usr/bin/python3
+"""
+Script to run the solve(input_file) method for a given day
+
+Ex:
+./run 1     - calls solutions.day01.solve('./input/day01.txt')
+./run 1 t   - calls solutions.day01.solve('./input/test/day01.txt')
+./run 1 c   - creates all files for day01
+"""
+import importlib
+import sys
+
+
+args = sys.argv[1:]
+
+day = args[0]
+label = f'day{day.zfill(2)}'
+
+input_dir = './input'
+if len(args) > 1:
+    if args[1] in ['t', 'test']:
+        input_dir += '/test'
+    if args[1] in ['c', 'create']:
+        fp = open(f'./input/test/{label}.txt', 'x')
+        fp.close()
+        fp = open(f'input/{label}.txt', 'x')
+        fp.close()
+        with open(f'./solutions/{label}.py', 'x') as fp, open('./template.py', 'r') as template:
+            fp.write(template.read())
+        sys.exit(0)
+
+module = importlib.import_module(f'solutions.{label}')
+module.solve(input_file=f'{input_dir}/{label}.txt')

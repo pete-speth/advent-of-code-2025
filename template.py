@@ -7,7 +7,7 @@ def parse_fn(s: str):
 
 @solution(parser=parse_fn)
 def solve(input):
-    pass
+   pass
 
 
 
